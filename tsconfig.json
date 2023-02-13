@@ -6,7 +6,7 @@
         "strict": true,
         "noImplicitAny": true,
         "strictNullChecks": true,
-        "allowSyntheticDefaultImports": false,
+        "allowSyntheticDefaultImports": true,
         "removeComments": true,
         "outDir": "./app",
         "sourceMap": true,
