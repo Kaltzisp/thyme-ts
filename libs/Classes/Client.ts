@@ -26,7 +26,7 @@ class ThymeClient extends Client {
             hour12: false,
             timeZone: "Australia/Melbourne"
         }).split(", ");
-        time = `BOOTED CLIENT: ${this.config.name} @ ${time[2]} - ${time[0]} ${time[1]}`;
+        time = `BOOTED CLIENT: ${this.user?.username} @ ${time[2]} - ${time[0]} ${time[1]}`;
         const separator = new Array(time.length + 1).join("=");
         console.log(`\n\n${separator}\n${time}\n${separator}\n\n`);
     }
