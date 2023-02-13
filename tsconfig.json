@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "module": "ES2022",
+        "target": "ES2022",
+        "moduleResolution": "nodenext",
+        "strict": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "allowSyntheticDefaultImports": false,
+        "removeComments": true,
+        "outDir": "./app",
+        "sourceMap": true,
+        "skipLibCheck": false
+    },
+    "include": ["./libs/**/*", "index.js"],
+    "exclude": ["./node_modules/**/*", "./app/**/*"],
+}
