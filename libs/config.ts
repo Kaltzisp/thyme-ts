@@ -17,5 +17,5 @@ const config: BotConfig = {
     intents: [GatewayIntentBits.GuildInvites]
 };
 
-export default config;
+export { config };
 export type { BotConfig };
