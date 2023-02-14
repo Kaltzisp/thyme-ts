@@ -1,6 +1,7 @@
-import { Client, REST, Routes } from "discord.js";
-import { type Command, importAll } from "../core/registerCommands.js";
 import type { BotConfig } from "../config.js";
+import { Client } from "discord.js";
+import { Command } from "./Commands.js";
+import { importAll } from "../core/importAll.js";
 
 class ThymeClient extends Client {
     public config: BotConfig;
@@ -18,18 +19,13 @@ class ThymeClient extends Client {
 
     private async registerCommands(): Promise<void> {
         // Registering commands.
-        const libs = (await Promise.all(importAll("./app/commands"))).map(lib => lib.default);
-        const rest = new REST({ version: "10" }).setToken(process.env.BOT_TOKEN!);
-        await rest.put(Routes.applicationCommands(this.user!.id), { body: libs });
-        // Restructuring to object.
-        const modules: Record<string, Command> = libs.reduce((accumulator: Record<string, Command>, current) => {
-            accumulator[current.name] = current;
-            return accumulator;
-        }, {});
-        // Assigning command exes.
+        const commmandList = (await Promise.all(importAll("./app/commands"))).map(lib => new Command(this, lib.default));
+        const commands = await Command.registerCommands(this, commmandList).catch(err => console.log(err)) as Map<string, Command>;
+        // // Assigning command exes.
         this.on("interactionCreate", (interaction) => {
-            if (interaction.isChatInputCommand()) {
-                modules[interaction.commandName].exe(interaction);
+            if (interaction.isChatInputCommand() && commands.get(interaction.commandName)) {
+                const cmd = commands.get(interaction.commandName)!;
+                cmd.exe(interaction);
             }
         });
     }
@@ -53,4 +49,4 @@ class ThymeClient extends Client {
     }
 }
 
-export default ThymeClient;
+export { ThymeClient };
