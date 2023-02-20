@@ -4,7 +4,7 @@ export default {
     name: "ping",
     alias: ["ping"],
     description: "Sends the user and client ping.",
-    args: [],
+    args: {},
     async exe(interaction: ChatInputCommandInteraction): Promise<void> {
         const msg = await interaction.reply({ content: "Ping!", fetchReply: true }).catch(err => console.log(err)) as Message;
         const myPing = Math.round(msg.createdTimestamp - interaction.createdTimestamp);
