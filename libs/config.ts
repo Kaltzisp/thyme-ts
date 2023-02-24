@@ -12,7 +12,7 @@ interface BotConfig {
 const config: BotConfig = {
     token: process.env.BOT_TOKEN!,
     evalChannels: process.env.EVAL_CHANNELS!.split(","),
-    intents: [GatewayIntentBits.GuildInvites]
+    intents: [GatewayIntentBits.Guilds]
 };
 
 export { config };
