@@ -13,9 +13,9 @@ export default {
             try {
                 // eslint-disable-next-line no-eval
                 evalOutput = eval(interaction.options.getString("expression", true)) as string;
-            } catch (e) {
-                if (e instanceof Error) {
-                    evalOutput = e.message;
+            } catch (err) {
+                if (err instanceof Error) {
+                    evalOutput = err.message;
                 } else {
                     evalOutput = "Unknown error.";
                 }
