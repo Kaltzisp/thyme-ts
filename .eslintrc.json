@@ -18,6 +18,7 @@
         "function-call-argument-newline": ["error", "consistent"],
         "id-length": "off",
         "indent": ["error", 4],
+        "linebreak-style": "off",
         "max-len": ["error", 200],
         "multiline-comment-style": "off",
         "newline-per-chained-call": "off",
