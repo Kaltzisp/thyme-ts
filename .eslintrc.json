@@ -20,6 +20,7 @@
         "indent": ["error", 4],
         "linebreak-style": "off",
         "max-len": ["error", 200],
+        "max-statements": "off",
         "multiline-comment-style": "off",
         "newline-per-chained-call": "off",
         "no-console": "off",
@@ -38,6 +39,7 @@
         "@typescript-eslint/object-curly-spacing": "off",
         "@typescript-eslint/prefer-readonly-parameter-types": "off",
         "@typescript-eslint/space-before-function-paren": "off",
+        "@typescript-eslint/strict-boolean-expressions": "off",
         "@typescript-eslint/restrict-template-expressions": "off"
     }
 }
