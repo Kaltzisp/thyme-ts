@@ -1,8 +1,9 @@
+import { Events } from "discord.js";
 import { ThymeClient } from "./Classes/Client.js";
 import { config } from "./config.js";
 
 const client = new ThymeClient(config);
-client.login(process.env.BOT_TOKEN).catch(e => console.error(e));
-client.on("ready", () => {
-    client.initialize().catch(err => console.error(err));
+client.login(config.token).catch(e => console.error(e));
+client.once(Events.ClientReady, () => {
+    client.initialize().catch(e => console.log(e));
 });
