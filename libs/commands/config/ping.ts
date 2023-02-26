@@ -1,11 +1,10 @@
-import type { ChatInputCommandInteraction, Message } from "discord.js";
+import { type ChatInputCommandInteraction, type Message, SlashCommandBuilder } from "discord.js";
 
 export default {
-    name: "ping",
-    alias: ["ping"],
-    description: "Sends the user and client ping.",
-    args: {},
-    async exe(interaction: ChatInputCommandInteraction): Promise<void> {
+    data: new SlashCommandBuilder()
+        .setName("ping")
+        .setDescription("Sends the client and user ping."),
+    async execute(interaction: ChatInputCommandInteraction): Promise<void> {
         const msg = await interaction.reply({ content: "Ping!", fetchReply: true }).catch(err => console.log(err)) as Message;
         const myPing = Math.round(msg.createdTimestamp - interaction.createdTimestamp);
         const clientPing = interaction.client.ws.ping;
