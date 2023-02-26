@@ -1,33 +1,37 @@
+
+import { Client, Collection, Events, type Interaction, REST, Routes } from "discord.js";
+import { type Command, getCommands } from "../core/commands.js";
 import type { BotConfig } from "../config.js";
-import { Client } from "discord.js";
-import { Command } from "./Commands.js";
-import { importAll } from "../core/importAll.js";
 
 class ThymeClient extends Client {
     public config: BotConfig;
-    public cmds: unknown;
+    public commands: Collection<string, Command>;
 
     public constructor(config: BotConfig) {
         super({ intents: config.intents });
         this.config = config;
+        this.commands = new Collection();
     }
 
     public async initialize(): Promise<void> {
         this.logStart();
-        await this.registerCommands();
-    }
-
-    private async registerCommands(): Promise<void> {
-        // Registering commands.
-        const commmandList = (await Promise.all(importAll("./app/commands"))).map(lib => new Command(this, lib.default));
-        const commands = await Command.registerCommands(this, commmandList).catch(err => console.log(err)) as Map<string, Command>;
-        // // Assigning command exes.
-        this.on("interactionCreate", (interaction) => {
-            if (interaction.isChatInputCommand() && commands.get(interaction.commandName)) {
-                const cmd = commands.get(interaction.commandName)!;
-                cmd.exe(interaction);
+        await this.registerCommands().catch(e => console.log(e));
+        this.on(Events.InteractionCreate, (interaction: Interaction) => {
+            if (interaction.isChatInputCommand() && this.commands.has(interaction.commandName)) {
+                const command = this.commands.get(interaction.commandName)!;
+                command.execute(interaction, this.config);
             }
         });
+    }
+
+    public async registerCommands(): Promise<void> {
+        const libs = await getCommands("./app/commands/").catch(e => console.log(e)) as Command[];
+        for (const command of libs) {
+            this.commands.set(command.data.name, command);
+        }
+        const commandJSONs = this.commands.map(command => command.data.toJSON());
+        const rest = new REST({ version: "10" }).setToken(this.config.token);
+        rest.put(Routes.applicationCommands(this.user!.id), { body: commandJSONs }).catch(e => console.log(e));
     }
 
     private logStart(): void {
