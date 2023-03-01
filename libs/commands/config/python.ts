@@ -11,9 +11,12 @@ export default {
             .setRequired(true)),
     async execute(interaction: ChatInputCommandInteraction): Promise<void> {
         const msg = await interaction.reply({ content: "Running python...", fetchReply: true }).catch(err => console.log(err)) as Message;
-        const pythonProcess = spawn("python", [interaction.options.getString("path", true)]);
+        const pythonProcess = spawn("/root/miniconda3/envs/arb/bin/python", [interaction.options.getString("path", true)]);
         pythonProcess.stdout.on("data", (data) => {
             msg.edit(`\`\`\`py\n${data}\n\`\`\``).catch(e => console.log(e));
+        });
+        pythonProcess.stderr.on("data", (error) => {
+            msg.edit(`\`\`\`py\n${error}\n\`\`\``).catch(e => console.log(e));
         });
     }
 };
