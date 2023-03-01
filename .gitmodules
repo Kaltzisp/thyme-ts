@@ -1,0 +1,3 @@
+[submodule "PromoBetting"]
+	path = PromoBetting
+	url = git@github.com:dqueric/PromoBetting.git
