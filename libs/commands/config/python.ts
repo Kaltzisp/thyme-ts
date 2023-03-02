@@ -11,7 +11,7 @@ export default {
             .setRequired(true)),
     execute(interaction: ChatInputCommandInteraction): void {
         const path = interaction.options.getString("path", true);
-        interaction.reply({ content: `Running python: ${path}`, fetchReply: true }).catch(err => console.log(err));
+        interaction.reply({ content: `Running python: \`${path}\``, fetchReply: true }).catch(err => console.log(err));
         // "C:/Users/peter/miniconda3/envs/arb/python.exe"
         const pythonProcess = spawn("/root/miniconda3/envs/arb/bin/python", [path]);
         pythonProcess.stdout.on("data", (data) => {
