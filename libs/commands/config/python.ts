@@ -10,8 +10,15 @@ export default {
             .setDescription("The path to the python file.")
             .setRequired(true)),
     execute(interaction: ChatInputCommandInteraction): void {
-        const path = interaction.options.getString("path", true);
+        let path = interaction.options.getString("path", true);
         interaction.reply({ content: `Running python: \`${path}\``, fetchReply: true }).catch(err => console.log(err));
+        switch (path) {
+            case "nba":
+                path = "PromoBetting/H2HPromo/h2h_promo.py";
+                break;
+            default:
+                // Pass.
+        }
         // "C:/Users/peter/miniconda3/envs/arb/python.exe"
         const pythonProcess = spawn("/root/miniconda3/envs/arb/bin/python", [path]);
         pythonProcess.stdout.on("data", (data) => {
