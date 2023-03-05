@@ -20,7 +20,7 @@ export default {
                 // Pass.
         }
         // "C:/Users/peter/miniconda3/envs/arb/python.exe"
-        const pythonProcess = spawn("/root/miniconda3/envs/arb/bin/python", [path]);
+        const pythonProcess = spawn(process.env.CONDA_PATH!, [path]);
         pythonProcess.stdout.on("data", (data) => {
             interaction.channel?.send(`\`\`\`py\n${data}\n\`\`\``).catch(e => console.log(e));
         });
