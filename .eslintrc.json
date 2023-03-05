@@ -17,7 +17,7 @@
         "func-style": ["error", "declaration"],
         "function-call-argument-newline": ["error", "consistent"],
         "id-length": "off",
-        "indent": ["error", 4],
+        "indent": ["error", 4, { "SwitchCase": 1 }],
         "linebreak-style": "off",
         "max-len": ["error", 200],
         "max-statements": "off",
