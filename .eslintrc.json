@@ -32,6 +32,7 @@
         "sort-keys": "off",
         "@typescript-eslint/consistent-type-imports": ["error", { "fixStyle": "inline-type-imports" }],
         "@typescript-eslint/lines-between-class-members": "off",
+        "@typescript-eslint/naming-convention": "off",
         "@typescript-eslint/no-confusing-void-expression": ["error", { "ignoreArrowShorthand": true }],
         "@typescript-eslint/no-magic-numbers": "off",
         "@typescript-eslint/no-non-null-assertion": "off",
