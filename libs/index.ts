@@ -1,6 +1,6 @@
 import { Events } from "discord.js";
 import { ThymeClient } from "./Classes/Client.js";
-import { config } from "./config.js";
+import { config } from "./core/config.js";
 
 const client = new ThymeClient(config);
 client.login(config.token).catch(e => console.error(e));

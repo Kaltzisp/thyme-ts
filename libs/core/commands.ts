@@ -1,5 +1,5 @@
 import type { Interaction, SlashCommandBuilder } from "discord.js";
-import type { BotConfig } from "../config.js";
+import type { BotConfig } from "./config.js";
 import fs from "fs";
 import path from "path";
 

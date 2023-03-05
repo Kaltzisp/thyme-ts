@@ -1,7 +1,7 @@
 
 import { Client, Collection, Events, type Interaction, REST, Routes } from "discord.js";
 import { type Command, getCommands } from "../core/commands.js";
-import type { BotConfig } from "../config.js";
+import type { BotConfig } from "../core/config.js";
 
 class ThymeClient extends Client {
     public config: BotConfig;

@@ -1,5 +1,5 @@
 import { type ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
-import type { BotConfig } from "../../config.js";
+import type { BotConfig } from "../../core/config.js";
 
 export default {
     data: new SlashCommandBuilder()
