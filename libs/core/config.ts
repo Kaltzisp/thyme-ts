@@ -16,7 +16,11 @@ const config = {
     token: process.env.BOT_TOKEN!,
     admins: process.env.ADMINS!.split(","),
     evalChannels: process.env.EVAL_CHANNELS!.split(","),
-    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent]
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.MessageContent,
+        GatewayIntentBits.GuildVoiceStates
+    ]
 };
 
 export { config };

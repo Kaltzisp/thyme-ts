@@ -1,16 +1,26 @@
 
 import { Client, Collection, Events, type Interaction, REST, Routes } from "discord.js";
 import { type Command, getCommands } from "../core/commands.js";
+import { Player, type ThymePlayer } from "./Player.js";
 import type { BotConfig } from "../core/config.js";
 
 class ThymeClient extends Client {
     public config: BotConfig;
     public commands: Collection<string, Command>;
+    public players: Collection<string, ThymePlayer>;
 
     public constructor(config: BotConfig) {
         super({ intents: config.intents });
         this.config = config;
         this.commands = new Collection();
+        this.players = new Collection();
+    }
+
+    public player(guildId: string): ThymePlayer {
+        if (!this.players.has(guildId)) {
+            this.players.set(guildId, new Player(this, guildId));
+        }
+        return this.players.get(guildId)!;
     }
 
     public async initialize(): Promise<void> {
