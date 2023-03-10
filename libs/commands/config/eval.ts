@@ -9,13 +9,13 @@ export default {
             .setName("expression")
             .setDescription("The expression to evaluate.")
             .setRequired(true)),
-    execute(interaction: ChatInputCommandInteraction, config: BotConfig): void {
+    async execute(interaction: ChatInputCommandInteraction, config: BotConfig): Promise<void> {
         if (config.admins.includes(interaction.member!.user.id)) {
             const evalInput = interaction.options.getString("expression", true);
             let evalOutput = "";
             try {
                 // eslint-disable-next-line no-eval
-                evalOutput = eval(evalInput) as string;
+                evalOutput = await eval(evalInput) as string;
             } catch (e) {
                 if (e instanceof Error) {
                     evalOutput = `${e.message}\n${e.stack}`;
