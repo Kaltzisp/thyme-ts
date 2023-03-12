@@ -24,6 +24,6 @@
     "discord.js": "latest",
     "@discordjs/voice": "latest",
     "dotenv": "latest",
-    "puppeteer": "latest"
+    "ytdl-core": "latest"
   }
 }
