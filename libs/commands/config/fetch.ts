@@ -14,7 +14,7 @@ export default {
             content: `Fetched file from \`${path}\``,
             files: [path]
         }).catch((e) => {
-            console.log(e);
+            console.error(e);
             interaction.reply(`Failed to fetch file from \`${path}\``).catch(err => console.log(err));
         });
     }

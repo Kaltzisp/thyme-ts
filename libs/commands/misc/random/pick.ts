@@ -11,6 +11,6 @@ export default {
     execute(interaction: ChatInputCommandInteraction): void {
         const choices = interaction.options.getString("choices", true).split("|");
         const selection = choices[Math.floor(Math.random() * choices.length)];
-        interaction.reply(`I chose: \`${selection}\``).catch(e => console.log(e));
+        interaction.reply(`I chose: \`${selection}\``).catch(e => console.error(e));
     }
 };

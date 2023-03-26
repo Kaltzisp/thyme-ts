@@ -10,6 +10,6 @@ export default {
             .setColor([20, 150, 130])
             .setTitle(`Invite ${bot.username} to your server!`)
             .setURL(`https://discord.com/oauth2/authorize?client_id=${bot.id}&permissions=8&scope=bot%20applications.commands`);
-        interaction.reply({ embeds: [embed] }).catch(e => console.log(e));
+        interaction.reply({ embeds: [embed] }).catch(e => console.error(e));
     }
 };

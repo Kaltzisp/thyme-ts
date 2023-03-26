@@ -12,6 +12,6 @@ export default {
         const client = interaction.client as ThymeClient;
         client.player(interaction.guildId)
             .joinChannel((await interaction.member.fetch(false)).voice.channelId)
-            .catch(e => console.log(e));
+            .catch(e => console.error(e));
     }
 };

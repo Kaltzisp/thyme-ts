@@ -25,7 +25,7 @@ class ThymeClient extends Client {
 
     public async initialize(): Promise<void> {
         this.logStart();
-        await this.registerCommands().catch(e => console.log(e));
+        await this.registerCommands().catch(e => console.error(e));
         this.on(Events.InteractionCreate, (interaction: Interaction) => {
             if (interaction.isChatInputCommand() && this.commands.has(interaction.commandName)) {
                 const command = this.commands.get(interaction.commandName)!;
@@ -35,13 +35,13 @@ class ThymeClient extends Client {
     }
 
     public async registerCommands(): Promise<void> {
-        const libs = await getCommands("./app/commands/").catch(e => console.log(e)) as Command[];
+        const libs = await getCommands("./app/commands/").catch(e => console.error(e)) as Command[];
         for (const command of libs) {
             this.commands.set(command.data.name, command);
         }
         const commandJSONs = this.commands.map(command => command.data.toJSON());
         const rest = new REST({ version: "10" }).setToken(this.config.token);
-        rest.put(Routes.applicationCommands(this.user!.id), { body: commandJSONs }).catch(e => console.log(e));
+        rest.put(Routes.applicationCommands(this.user!.id), { body: commandJSONs }).catch(e => console.error(e));
     }
 
     private logStart(): void {

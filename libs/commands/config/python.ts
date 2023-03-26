@@ -23,10 +23,10 @@ export default {
         const pythonProcess = spawn(process.env.CONDA_PATH!, [path]);
         const channel = interaction.channel as TextChannel;
         pythonProcess.stdout.on("data", (data) => {
-            channel.send(`\`\`\`py\n${data}\n\`\`\``).catch(e => console.log(e));
+            channel.send(`\`\`\`py\n${data}\n\`\`\``).catch(e => console.error(e));
         });
         pythonProcess.stderr.on("data", (error) => {
-            channel.send(`\`\`\`py\n${error}\n\`\`\``).catch(e => console.log(e));
+            channel.send(`\`\`\`py\n${error}\n\`\`\``).catch(e => console.error(e));
         });
     }
 };
