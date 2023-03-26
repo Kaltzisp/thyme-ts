@@ -12,7 +12,8 @@ export default {
                 channel.send(`\`${error.message}\``).catch(e => console.error(e));
                 return;
             }
-            exec(`kill ${stdout}`, (err, output) => {
+            const pid = stdout.split("\n").slice(0, -2).join("\n");
+            exec(`kill ${pid}`, (err, output) => {
                 if (err) {
                     channel.send(`\`${err.message}\``).catch(e => console.error(e));
                     return;
