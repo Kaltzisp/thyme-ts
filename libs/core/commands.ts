@@ -33,7 +33,9 @@ async function getCommands(dir: string): Promise<Command[]> {
     for (const libPath of importPaths) {
         libs.push(import(`file://${libPath}`) as Promise<LibImport>);
     }
-    const commands = (await Promise.all(libs)).map(lib => lib.default);
+    const commands = (await Promise.all(libs))
+        .filter(lib => Object.hasOwn(lib, "default"))
+        .map(lib => lib.default);
     return commands;
 }
 
