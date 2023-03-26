@@ -1,4 +1,4 @@
-import { type ChatInputCommandInteraction, SlashCommandBuilder, type TextChannel } from "discord.js";
+import { type ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
 import { exec } from "child_process";
 
 export default {
@@ -6,19 +6,19 @@ export default {
         .setName("kill")
         .setDescription("Kills all PromoBetting processes."),
     execute(interaction: ChatInputCommandInteraction): void {
-        const channel = interaction.channel as TextChannel;
         exec("pgrep -f PromoBetting", (error, stdout) => {
+            interaction.reply("`Ending PromoBetting processes:`").catch(e => console.log(e));
             if (error) {
-                channel.send(`\`${error.message}\``).catch(e => console.error(e));
+                interaction.followUp(`\`${error.message}\``).catch(e => console.error(e));
                 return;
             }
             const pid = stdout.split("\n").slice(0, -2).join("\n");
             exec(`kill ${pid}`, (err, output) => {
                 if (err) {
-                    channel.send(`\`${err.message}\``).catch(e => console.error(e));
+                    interaction.followUp(`\`${err.message}\``).catch(e => console.error(e));
                     return;
                 }
-                channel.send(`Script executed with output: ${output}\``).catch(e => console.error(e));
+                interaction.followUp(`Script executed with output: ${output}\``).catch(e => console.error(e));
             });
         });
     }
