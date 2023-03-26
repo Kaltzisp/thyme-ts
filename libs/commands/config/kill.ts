@@ -6,13 +6,19 @@ export default {
         .setName("kill")
         .setDescription("Kills all PromoBetting processes."),
     execute(interaction: ChatInputCommandInteraction): void {
-        exec("pkill -f PromoBetting", (err, stdout, stderr) => {
-            if (err) {
-                console.error(err);
-            } else {
-                const channel = interaction.channel as TextChannel;
-                channel.send(`\`\`\`sh\nOutput: ${stdout}\nError: ${stderr}\n\`\`\``).catch(e => console.error(e));
+        const channel = interaction.channel as TextChannel;
+        exec("pgrep -f PromoBetting", (error, stdout) => {
+            if (error) {
+                channel.send(`\`${error.message}\``).catch(e => console.error(e));
+                return;
             }
+            exec(`kill ${stdout}`, (err, output) => {
+                if (err) {
+                    channel.send(`\`${err.message}\``).catch(e => console.error(e));
+                    return;
+                }
+                channel.send(`Script executed with output: ${output}\``).catch(e => console.error(e));
+            });
         });
     }
 };
