@@ -1,4 +1,4 @@
-import { type ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
+import { type ChatInputCommandInteraction, SlashCommandBuilder, type TextChannel } from "discord.js";
 import { spawn } from "child_process";
 
 export default {
@@ -21,11 +21,12 @@ export default {
         }
         // "C:/Users/peter/miniconda3/envs/arb/python.exe"
         const pythonProcess = spawn(process.env.CONDA_PATH!, [path]);
+        const channel = interaction.channel as TextChannel;
         pythonProcess.stdout.on("data", (data) => {
-            interaction.channel?.send(`\`\`\`py\n${data}\n\`\`\``).catch(e => console.log(e));
+            channel.send(`\`\`\`py\n${data}\n\`\`\``).catch(e => console.log(e));
         });
         pythonProcess.stderr.on("data", (error) => {
-            interaction.channel?.send(`\`\`\`py\n${error}\n\`\`\``).catch(e => console.log(e));
+            channel.send(`\`\`\`py\n${error}\n\`\`\``).catch(e => console.log(e));
         });
     }
 };
