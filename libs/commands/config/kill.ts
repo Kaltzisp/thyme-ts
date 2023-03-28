@@ -6,11 +6,11 @@ export default {
         .setName("kill")
         .setDescription("Kills all PromoBetting processes."),
     execute(interaction: ChatInputCommandInteraction): void {
-        exec("pkill -f PromoBetting", (err, stdout, stderr) => {
+        exec("pgrep -f PromoBetting | grep -v $$ | xargs kill", (err) => {
             if (err) {
-                interaction.reply(`\`\`\`sh\n${err.message}\`\`\``).catch(e => console.error(e));
+                interaction.reply("`Command failed. Are you sure there was a process running?`").catch(e => console.log(e));
             } else {
-                interaction.reply(`\`\`\`sh\nOutput: ${stdout}\nError: ${stderr}\`\`\``).catch(e => console.error(e));
+                interaction.reply("`Command executed succesfully.`").catch(e => console.log(e));
             }
         });
     }
