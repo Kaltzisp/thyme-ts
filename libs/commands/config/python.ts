@@ -13,8 +13,14 @@ export default {
         let path = interaction.options.getString("path", true);
         interaction.reply({ content: `Running python: \`${path}\``, fetchReply: true }).catch(err => console.log(err));
         switch (path) {
+            case "bonuses":
+                path = "PromoBetting/BonusPromo/bonus_promo.py";
+                break;
             case "nba":
                 path = "PromoBetting/H2HPromo/h2h_promo.py";
+                break;
+            case "races":
+                path = "PromoBetting/RacePromo/race_promo.py";
                 break;
             default:
                 // Pass.
