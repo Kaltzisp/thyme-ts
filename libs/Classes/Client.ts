@@ -1,8 +1,10 @@
 
-import { Client, Collection, Events, type Interaction, REST, Routes } from "discord.js";
+import { Client, Collection, Events, type Interaction, REST, Routes, type TextChannel } from "discord.js";
 import { type Command, getCommands } from "../core/commands.js";
 import { Player, type ThymePlayer } from "./Player.js";
 import type { BotConfig } from "../core/config.js";
+import cron from "node-cron";
+import { spawnProcess } from "../core/utils.js";
 
 class ThymeClient extends Client {
     public config: BotConfig;
@@ -32,6 +34,7 @@ class ThymeClient extends Client {
                 command.execute(interaction, this.config);
             }
         });
+        this.initCronJobs();
     }
 
     public async registerCommands(): Promise<void> {
@@ -42,6 +45,14 @@ class ThymeClient extends Client {
         const commandJSONs = this.commands.map(command => command.data.toJSON());
         const rest = new REST({ version: "10" }).setToken(this.config.token);
         rest.put(Routes.applicationCommands(this.user!.id), { body: commandJSONs }).catch(e => console.error(e));
+    }
+
+    private initCronJobs(): void {
+        cron.schedule("0 9 * * *", () => {
+            this.channels.fetch("1083550635040976966").then((channel) => {
+                spawnProcess("PromoBetting/RacePromo/race_promo.py", channel as TextChannel);
+            }).catch(err => console.log(err));
+        });
     }
 
     private logStart(): void {

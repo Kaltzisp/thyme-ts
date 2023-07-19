@@ -13,17 +13,19 @@
     "build": "rm -rf app/* && tsc -p tsconfig.json"
   },
   "devDependencies": {
-    "eslint": "latest",
-    "typescript": "latest",
     "@types/express": "latest",
     "@types/node": "latest",
+    "@types/node-cron": "latest",
+    "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
-    "@typescript-eslint/eslint-plugin": "latest"
+    "eslint": "latest",
+    "typescript": "latest"
   },
   "dependencies": {
-    "discord.js": "latest",
     "@discordjs/voice": "latest",
+    "discord.js": "latest",
     "dotenv": "latest",
+    "node-cron": "latest",
     "ytdl-core": "latest"
   }
 }
