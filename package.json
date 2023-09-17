@@ -4,7 +4,7 @@
   "author": "Kaltzisp",
   "description": "Music bot built with discord.js",
   "license": "ISC",
-  "main": "libs/index.ts",
+  "main": "src/index.ts",
   "type": "module",
   "engines": {
     "node": ">=18.7.0"
@@ -25,7 +25,9 @@
     "@discordjs/voice": "latest",
     "discord.js": "latest",
     "dotenv": "latest",
+    "ffmpeg-static": "latest",
     "node-cron": "latest",
-    "ytdl-core": "latest"
+    "sodium-native": "latest",
+    "ytdl-core": "^4.11.5"
   }
 }
